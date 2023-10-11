@@ -1,0 +1,164 @@
+[
+    {
+        "name":"Redmi note 9 pro",
+        "price":13000,
+        "description":"this was a mobile made in china!",
+        "ratings":4,
+        "images":[
+            {
+                "image":"product10000.jpg"
+            }
+        ],
+        "category":"Electronics",
+        "seller":"Amazon",
+        "stock":10,
+        "numOfReviews":2,
+        "reviews":[
+            {
+                "name":"ravinth",
+                "ratings":3,
+                "comment":"nice mobile"
+            },
+            {
+                "name":"jameul",
+                "ratings":4,
+                "comment":"good perfomance"
+            }
+        ]
+    },
+    {
+        "name":"iphone 12 mini",
+        "price":33000,
+        "description":"this was a mobile made in china!",
+        "ratings":4,
+        "images":[
+            {
+                "image":"product10000.jpg"
+            }
+        ],
+        "category":"Electronics",
+        "seller":"Amazon",
+        "stock":10,
+        "numOfReviews":2,
+        "reviews":[
+            {
+                "name":"ravinth",
+                "ratings":3,
+                "comment":"nice mobile"
+            },
+            {
+                "name":"jameul",
+                "ratings":4,
+                "comment":"good perfomance"
+            }
+        ]
+    },
+    {
+        "name":"vivo v20",
+        "price":19000,
+        "description":"this was a mobile made in china!",
+        "ratings":4,
+        "images":[
+            {
+                "image":"product10000.jpg"
+            }
+        ],
+        "category":"Electronics",
+        "seller":"Amazon",
+        "stock":10,
+        "numOfReviews":2,
+        "reviews":[
+            {
+                "name":"ravinth",
+                "ratings":3,
+                "comment":"nice mobile"
+            },
+            {
+                "name":"jameul",
+                "ratings":4,
+                "comment":"good perfomance"
+            }
+        ]
+    },
+    {
+        "name":"pixel 7A",
+        "price":34000,
+        "description":"this was a mobile made in china!",
+        "ratings":4,
+        "images":[
+            {
+                "image":"product10000.jpg"
+            }
+        ],
+        "category":"Electronics",
+        "seller":"Amazon",
+        "stock":10,
+        "numOfReviews":2,
+        "reviews":[
+            {
+                "name":"ravinth",
+                "ratings":3,
+                "comment":"nice mobile"
+            },
+            {
+                "name":"jameul",
+                "ratings":4,
+                "comment":"good perfomance"
+            }
+        ]
+    },
+    {
+        "name":"samsung m20",
+        "price":23000,
+        "description":"this was a mobile made in china!",
+        "ratings":4,
+        "images":[
+            {
+                "image":"product10000.jpg"
+            }
+        ],
+        "category":"Electronics",
+        "seller":"Amazon",
+        "stock":10,
+        "numOfReviews":2,
+        "reviews":[
+            {
+                "name":"ravinth",
+                "ratings":3,
+                "comment":"nice mobile"
+            },
+            {
+                "name":"jameul",
+                "ratings":4,
+                "comment":"good perfomance"
+            }
+        ]
+    },
+    {
+        "name":"Redmi note 10S",
+        "price":21000,
+        "description":"this was a mobile made in china!",
+        "ratings":4,
+        "images":[
+            {
+                "image":"product10000.jpg"
+            }
+        ],
+        "category":"Electronics",
+        "seller":"Amazon",
+        "stock":10,
+        "numOfReviews":2,
+        "reviews":[
+            {
+                "name":"ravinth",
+                "ratings":3,
+                "comment":"nice mobile"
+            },
+            {
+                "name":"jameul",
+                "ratings":4,
+                "comment":"good perfomance"
+            }
+        ]
+    }
+]
