@@ -1,5 +1,6 @@
 const product = require('../models/productModel');
 const ErrorHandler = require('../utils/error');
+const handleAsyncError = require('../middlewares/handleAsyncError')
 
 // roue api/v1/products     GET
 exports.getProduct=async (req,res,next)=>{
@@ -12,14 +13,14 @@ exports.getProduct=async (req,res,next)=>{
 }
 
 // route api/v1/product/new      POST
-exports.newProduct=async (req,res,next)=>{
+exports.newProduct=handleAsyncError(async (req,res,next)=>{
     let Product = await product.create(req.body);
     res.status(200).json({
         success:true,
         message:"Product Added !",
         Product
     });
-}
+});
 
 // route api/v1/products/:id      GET
 exports.Product=async (req,res,next)=>{
@@ -34,7 +35,7 @@ exports.Product=async (req,res,next)=>{
         Product
     });
 
-}
+}; 
 
 // route api/v1/products/:id      PUT
 exports.updateProduct=async(req,res,next)=>{
