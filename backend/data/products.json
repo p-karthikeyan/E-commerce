@@ -10,7 +10,7 @@
             }
         ],
         "category":"Electronics",
-        "seller":"Amazon",
+        "seller":"Flipcart",
         "stock":10,
         "numOfReviews":2,
         "reviews":[
@@ -36,8 +36,8 @@
                 "image":"product10000.jpg"
             }
         ],
-        "category":"Electronics",
-        "seller":"Amazon",
+        "category":"MobilePhones",
+        "seller":"Flipcart",
         "stock":10,
         "numOfReviews":2,
         "reviews":[

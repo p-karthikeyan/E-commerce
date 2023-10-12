@@ -1,10 +1,14 @@
 const product = require('../models/productModel');
 const ErrorHandler = require('../utils/error');
 const handleAsyncError = require('../middlewares/handleAsyncError')
+const APIfeatures = require('../utils/apiFeatures')
 
 // roue api/v1/products     GET
 exports.getProduct=async (req,res,next)=>{
-    let Products = await product.find();
+    const productPerPage = 2;
+    const apiFeatures = new APIfeatures(product.find(),req.query).search().filter().paginate(productPerPage);
+
+    let Products = await apiFeatures.query;
     res.status(200).json({
         success:true,
         message:"Products received..",
