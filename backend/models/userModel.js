@@ -40,7 +40,7 @@ userSchema.pre('save',async function(next){
     this.password = await bcrypt.hash(this.password,10);
 })
 
-userSchema.methods.generateToken=()=>{
+userSchema.methods.generateToken=function(){
     return jwt.sign({id:this.id},process.env.JWT_SECRET_KEY,{
         expiresIn:process.env.JWT_EXPIRY_TIME
     })

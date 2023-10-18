@@ -10,5 +10,16 @@ exports.isAuthenticate=asyncErrorHandler(async(req,res,next)=>{
     }
     const decodedToken = jwt.verify(token,process.env.JWT_SECRET_KEY);
     req.user = await User.findById(decodedToken.id);
-    next();
+    
+    next(); 
 });
+
+exports.AuthorizeUser = (...roles)=>{
+    return (req,res,next)=>{
+
+        if(!roles.includes(req.user.role)){
+            return next(new ErrorHandler(`${req.user.role} role can't do this action!`));
+        }
+        next();
+    }
+}
