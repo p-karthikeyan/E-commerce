@@ -18,6 +18,7 @@ exports.getProduct=async (req,res,next)=>{
 
 // route api/v1/product/new      POST
 exports.newProduct=handleAsyncError(async (req,res,next)=>{
+    req.body.user = req.user.id
     let Product = await product.create(req.body);
     res.status(200).json({
         success:true,
