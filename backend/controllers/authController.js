@@ -102,3 +102,100 @@ exports.resetPassword = handleAsyncError(async (req,res,next)=>{
     sendToken(user,201,res);
 
 });
+
+exports.getProfile = handleAsyncError(async (req,res,next)=>{
+    const user = await User.findById(req.user.id);
+    if(!user){
+        return next(new ErrorHandler("User not found!!",401));
+    }
+    res.status(200).json({
+        success:true,
+        user
+    })
+});
+
+exports.updateProfile = handleAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.user.id);
+    if(!user){
+        return next(new ErrorHandler("User not found!!",401));
+    }
+    const newData = {
+        name:req.body.name,
+        email:req.body.email
+    }
+    await User.findByIdAndUpdate(req.user.id,newData,{
+        new:true,
+        runValidators:true
+    })
+    res.status(200).json({
+        success:true,
+        message:"profile updated!"
+    })
+});
+
+exports.changePassword = handleAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.user.id).select('+password');
+    if(!user){
+        return next(new ErrorHandler("User not found!!",401));
+    }
+    if(!await user.validatePswd(req.body.oldPassword)){
+        return next(new ErrorHandler("old password is incorrect!"));
+    }
+    user.password = req.body.password;
+    await user.save({validateBeforeSave:false});
+    res.status(200).json({
+        success:true,
+        message:"password changed successfully!"
+    })
+});
+
+exports.getUsers = handleAsyncError(async(req,res,next)=>{
+    const users = await User.find();
+    res.status(200).json({
+        success:true,
+        users
+    })
+});
+
+exports.getUser = handleAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.params.id);
+    if(!user){
+        return next(new ErrorHandler("User not found!!",401));
+    }
+    res.status(200).json({
+        success:true,
+        user
+    })
+});
+
+exports.updateUser = handleAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.params.id);
+    if(!user){
+        return next(new ErrorHandler("User not found!!",401));
+    }
+    const newData = {
+        name:req.body.name,
+        email:req.body.email,
+        role:req.body.role
+    }
+    await User.findByIdAndUpdate(req.params.id,newData,{
+        new:true,
+        runValidators:true
+    })
+    res.status(200).json({
+        success:true,
+        message:"profile updated!"
+    })
+});
+
+exports.deleteUser = handleAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.params.id);
+    if(!user){
+        return next(new ErrorHandler("User not found!!",401));
+    }
+    await user.deleteOne();
+    res.status(200).json({
+        success:true,
+        message:"User removed!"
+    })
+});

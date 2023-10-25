@@ -51,7 +51,7 @@ userSchema.methods.generateToken=function(){
 }
 
 userSchema.methods.validatePswd=async function(userPswd){
-    return await bcrypt.compare(userPswd,this.password);
+    return bcrypt.compare(userPswd,this.password);
 }
 
 userSchema.methods.getResetToken = function(){
