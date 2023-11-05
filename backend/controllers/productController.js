@@ -52,7 +52,6 @@ exports.updateProduct=async(req,res,next)=>{
             message:"product not found!"
         })
     }
-
     Product = await product.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
         runValidators:true
@@ -84,3 +83,68 @@ exports.deleteProduct=async (req,res,next)=>{
     });
 
 }
+
+exports.createReview = handleAsyncError(async(req,res,next)=>{
+    const {productId,rating,comment} = req.body;
+    let review = {
+        user:req.user.id,
+        rating,
+        comment
+    } 
+    const Product = await product.findById(productId)
+    const isReviewed = Product.reviews.find(review=>{
+        return (review.user.toString()==req.user.id.toString())
+    })
+    if(isReviewed){
+        Product.reviews.forEach(review=>{
+            if(review.user.toString()==req.user.id.toString()){
+                review.rating = rating,
+                review.comment = comment
+            }
+        })
+    }else{
+        Product.reviews.push(review);
+        Product.numOfReviews = Product.reviews.length;
+    }
+    let ratings = Product.reviews.reduce((acc,review)=>{
+        return acc+review.rating
+    },0)/Product.reviews.length
+    ratings = isNaN(ratings)?0:ratings;
+    Product.ratings = ratings;
+    await Product.save({validateBeforeSave:false})
+    res.status(200).json({
+        success:true,
+        message:"Review Added!.."
+    })
+})
+
+exports.getReviews = handleAsyncError(async(req,res,next)=>{
+    const Product = await product.findById(req.query.id)
+    if(!Product){return new ErrorHandler("Invali Product!")}
+    res.status(200).json({
+        success:true,
+        reviews:Product.reviews
+    })
+})
+
+exports.deleteReview = handleAsyncError(async(req,res,next)=>{
+    const Product = await product.findById(req.query.productId)
+    if(!Product){return new ErrorHandler("Invalid Product!..")}
+    const reviews = Product.reviews.filter(review=>{
+        return(review._id.toString()!=req.query.id)
+    })
+    let ratings = reviews.reduce((acc,review)=>{
+        return acc+review.rating
+    },0)/reviews.length
+    ratings = isNaN(ratings)?0:ratings
+
+    await product.findByIdAndUpdate(req.query.productId,{
+        reviews,
+        numOfReviews:reviews.length,
+        ratings
+    })
+    res.status(200).json({
+        success:true,
+        message:"review removed successfully.."
+    })
+})

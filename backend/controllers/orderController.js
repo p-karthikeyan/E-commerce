@@ -44,3 +44,55 @@ exports.getOrder = handleAsyncError(async(req,res,next)=>{
         Order
     })
 })
+
+exports.myOrders = handleAsyncError(async(req,res,next)=>{
+    const Orders = await order.find({user:req.user.id})
+    if(!Orders){
+        return new ErrorHandler(`No orders found the user ${req.user.name}`,404)
+    }
+    res.status(200).json({
+        success:true,
+        message:"Your Orders are..",
+        Orders
+    })
+})
+
+exports.allOrders = handleAsyncError(async(req,res,next)=>{
+    const Orders = await order.find();
+    if(!Orders){
+        return new ErrorHandler(`No orders found!`,404)
+    }
+    res.status(200).json({
+        success:true,
+        message:"All Orders..",
+        Orders
+    })
+})
+
+exports.updateOrder = handleAsyncError(async(req,res,next)=>{
+    const Order = await order.findById(req.params.id)
+    if(Order.orderStatus == "Delivered"){
+        return new ErrorHandler("The product is already delivered!",404)
+    }
+    Order.orderStatus = "Delivered"
+    Order.deliveredAt = Date.now();
+    Order.save({
+        validateBeforeSave:false
+    })
+    res.status(200).json({
+        success:true,
+        message:"Order Delivered!"
+    })
+})
+
+exports.deleteOrder = handleAsyncError(async(req,res,next)=>{
+    const Order = await order.findById(req.params.id)
+    if(!Order){
+        return new ErrorHandler(`No orders found!`,404)
+    }
+    await Order.deleteOne()
+    res.status(200).json({
+        success:true,
+        message:"Order removed successfully!"
+    })
+})
